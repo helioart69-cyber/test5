@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>제주콘텐츠진흥원 | 콘텐츠 공모전 신청</title>
+<style>
+  :root {
+    --sea-dark: #063a5e;
+    --sea: #0b6fa4;
+    --sea-light: #2fa8d5;
+    --tangerine: #ff8a3d;
+    --tangerine-dark: #e86e1c;
+    --ink: #1c2b36;
+    --paper: #f5faff;
+    --line: #dbe7f0;
+    --ok: #1b9e5a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.7;
+  }
+
+  a { color: inherit; }
+
+  /* ---------- header ---------- */
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--sea-dark);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 24px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .brand {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.3;
+  }
+
+  .brand .en {
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: #a9d6ee;
+  }
+
+  .brand .kr {
+    font-size: 19px;
+    font-weight: 800;
+  }
+
+  nav.site-nav {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  nav.site-nav a {
+    text-decoration: none;
+    color: #dcedf8;
+    font-size: 14px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: background 0.15s ease;
+  }
+
+  nav.site-nav a:hover {
+    background: rgba(255,255,255,0.12);
+    color: #fff;
+  }
+
+  /* ---------- hero ---------- */
+  .hero {
+    background: linear-gradient(160deg, var(--sea-dark) 0%, var(--sea) 55%, var(--sea-light) 100%);
+    color: #fff;
+    text-align: center;
+    padding: 72px 20px 90px;
+  }
+
+  .hero .badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.35);
+    padding: 6px 16px;
+    border-radius: 999px;
+    font-size: 13px;
+    margin-bottom: 20px;
+  }
+
+  .hero h1 {
+    font-size: 36px;
+    font-weight: 800;
+    margin-bottom: 14px;
+  }
+
+  .hero p {
+    font-size: 16px;
+    color: #dcedf8;
+    max-width: 560px;
+    margin: 0 auto 28px;
+  }
+
+  .btn {
+    display: inline-block;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 700;
+    padding: 14px 30px;
+    border-radius: 999px;
+    text-decoration: none;
+  }
+
+  .btn-primary {
+    background: var(--tangerine);
+    color: #fff;
+  }
+
+  .btn-primary:hover { background: var(--tangerine-dark); }
+
+  /* ---------- layout ---------- */
+  .container {
+    max-width: 940px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  section.block {
+    padding: 64px 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  section.block:last-of-type { border-bottom: none; }
+
+  .block h2 {
+    font-size: 24px;
+    font-weight: 800;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .block h2::before {
+    content: "";
+    width: 6px;
+    height: 22px;
+    background: var(--tangerine);
+    border-radius: 3px;
+  }
+
+  .block .desc {
+    color: #5b6b76;
+    font-size: 14.5px;
+    margin-bottom: 28px;
+  }
+
+  /* ---------- info list ---------- */
+  .info-list {
+    list-style: none;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+
+  .info-list li {
+    display: flex;
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--line);
+    font-size: 14.5px;
+  }
+
+  .info-list li:last-child { border-bottom: none; }
+
+  .info-list .label {
+    width: 110px;
+    flex-shrink: 0;
+    color: var(--sea);
+    font-weight: 700;
+  }
+
+  /* ---------- field cards ---------- */
+  .field-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+  }
+
+  .field-card {
+    background: #fff;
+    border: 2px solid var(--line);
+    border-radius: 14px;
+    padding: 22px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  .field-card:hover {
+    border-color: var(--sea-light);
+    transform: translateY(-3px);
+  }
+
+  .field-card.active {
+    border-color: var(--tangerine);
+    background: #fff6ee;
+  }
+
+  .field-card .icon { font-size: 30px; margin-bottom: 10px; }
+  .field-card h3 { font-size: 15.5px; margin-bottom: 6px; }
+  .field-card p { font-size: 13px; color: #6a7883; }
+
+  /* ---------- form ---------- */
+  form.apply {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 32px;
+  }
+
+  .form-row { margin-bottom: 20px; }
+
+  .form-row label {
+    display: block;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .form-row .req { color: var(--tangerine-dark); margin-left: 3px; }
+
+  .form-row input[type="text"],
+  .form-row input[type="tel"],
+  .form-row input[type="email"],
+  .form-row select,
+  .form-row textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    font-size: 14.5px;
+    font-family: inherit;
+    background: #fbfdff;
+  }
+
+  .form-row input:focus,
+  .form-row select:focus,
+  .form-row textarea:focus {
+    outline: none;
+    border-color: var(--sea-light);
+    background: #fff;
+  }
+
+  .form-row textarea { resize: vertical; min-height: 110px; }
+
+  .char-count {
+    text-align: right;
+    font-size: 12px;
+    color: #8b98a2;
+    margin-top: 4px;
+  }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .error-msg {
+    color: #d63535;
+    font-size: 12.5px;
+    margin-top: 6px;
+    display: none;
+  }
+
+  .form-row.invalid input,
+  .form-row.invalid select,
+  .form-row.invalid textarea {
+    border-color: #d63535;
+  }
+
+  .form-row.invalid .error-msg { display: block; }
+
+  .agree-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    background: #f5faff;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 14px 16px;
+    font-size: 13.5px;
+    color: #445059;
+  }
+
+  .agree-row input { margin-top: 3px; }
+
+  .submit-row {
+    margin-top: 24px;
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+  }
+
+  .btn-ghost {
+    background: #fff;
+    border: 1px solid var(--line);
+    color: #5b6b76;
+    padding: 14px 26px;
+    border-radius: 999px;
+    font-size: 14.5px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  /* ---------- status table ---------- */
+  .status-empty {
+    background: #fff;
+    border: 1px dashed var(--line);
+    border-radius: 14px;
+    padding: 40px;
+    text-align: center;
+    color: #8b98a2;
+    font-size: 14px;
+  }
+
+  table.status-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+
+  table.status-table th,
+  table.status-table td {
+    padding: 12px 14px;
+    font-size: 13.5px;
+    text-align: left;
+    border-bottom: 1px solid var(--line);
+  }
+
+  table.status-table th {
+    background: #f0f6fa;
+    color: var(--sea-dark);
+    font-weight: 700;
+  }
+
+  table.status-table tr:last-child td { border-bottom: none; }
+
+  .pill {
+    display: inline-block;
+    background: #e6f7ee;
+    color: var(--ok);
+    font-size: 12px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 999px;
+  }
+
+  .cancel-btn {
+    border: none;
+    background: none;
+    color: #d63535;
+    cursor: pointer;
+    font-size: 13px;
+    text-decoration: underline;
+  }
+
+  /* ---------- toast ---------- */
+  .toast {
+    position: fixed;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--sea-dark);
+    color: #fff;
+    padding: 16px 24px;
+    border-radius: 12px;
+    font-size: 14.5px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.25s ease;
+    z-index: 100;
+    text-align: center;
+  }
+
+  .toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  .toast strong { color: var(--tangerine); }
+
+  footer {
+    text-align: center;
+    padding: 30px 20px;
+    font-size: 12.5px;
+    color: #8b98a2;
+  }
+
+  @media (max-width: 640px) {
+    .hero h1 { font-size: 27px; }
+    .two-col { grid-template-columns: 1fr; }
+    table.status-table { font-size: 12px; }
+    table.status-table th:nth-child(4), table.status-table td:nth-child(4) { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="brand">
+    <span class="en">JEJU CONTENTS PROMOTION AGENCY</span>
+    <span class="kr">제주콘텐츠진흥원</span>
+  </div>
+  <nav class="site-nav">
+    <a href="#about">공모전 안내</a>
+    <a href="#fields">지원 분야</a>
+    <a href="#apply">신청하기</a>
+    <a href="#status">제출 현황</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <span class="badge">2026 제주 콘텐츠 공모전 · 접수 중</span>
+  <h1>제주 콘텐츠 공모전 · 사업 신청</h1>
+  <p>영상, 게임, 애니메이션, 웹툰 등 제주를 소재로 한 창작 콘텐츠를 발굴하고<br>제작·유통을 지원합니다.</p>
+  <a href="#apply" class="btn btn-primary">지금 신청하기</a>
+</section>
+
+<main class="container">
+
+  <section id="about" class="block">
+    <h2>공모전 안내</h2>
+    <p class="desc">제주의 자연·문화 자산을 활용한 콘텐츠 창작자와 기업을 지원하는 공모 사업입니다. (교육용 예시 페이지)</p>
+    <ul class="info-list">
+      <li><span class="label">접수 기간</span><span>2026. 08. 04 ~ 2026. 09. 30</span></li>
+      <li><span class="label">지원 대상</span><span>제주 소재 콘텐츠 기업 및 개인 창작자</span></li>
+      <li><span class="label">지원 내용</span><span>제작비 지원, 멘토링, 유통·마케팅 컨설팅</span></li>
+      <li><span class="label">문의처</span><span>content@jeju-content.example.kr / 064-000-0000</span></li>
+    </ul>
+  </section>
+
+  <section id="fields" class="block">
+    <h2>지원 분야</h2>
+    <p class="desc">카드를 클릭하면 아래 신청서의 지원 분야가 자동으로 선택됩니다.</p>
+    <div class="field-grid" id="fieldGrid">
+      <div class="field-card" data-field="영상">
+        <div class="icon">🎬</div>
+        <h3>영상 콘텐츠</h3>
+        <p>단편영화, 다큐멘터리, 광고영상</p>
+      </div>
+      <div class="field-card" data-field="게임">
+        <div class="icon">🎮</div>
+        <h3>게임</h3>
+        <p>모바일·PC 게임 기획 및 개발</p>
+      </div>
+      <div class="field-card" data-field="애니메이션">
+        <div class="icon">🖌️</div>
+        <h3>애니메이션</h3>
+        <p>2D·3D 애니메이션 제작</p>
+      </div>
+      <div class="field-card" data-field="웹툰">
+        <div class="icon">📖</div>
+        <h3>웹툰·스토리</h3>
+        <p>웹툰, 웹소설, 스토리 IP</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="apply" class="block">
+    <h2>신청서 작성</h2>
+    <p class="desc">아래 정보를 입력한 뒤 제출하면 접수번호가 발급됩니다. (본 페이지는 실습용으로, 제출 내역은 이 브라우저에만 저장됩니다.)</p>
+
+    <form class="apply" id="applyForm" novalidate>
+      <div class="two-col">
+        <div class="form-row" id="row-name">
+          <label>신청자명<span class="req">*</span></label>
+          <input type="text" id="name" placeholder="홍길동">
+          <p class="error-msg">이름을 입력해 주세요.</p>
+        </div>
+        <div class="form-row" id="row-phone">
+          <label>연락처<span class="req">*</span></label>
+          <input type="tel" id="phone" placeholder="010-1234-5678">
+          <p class="error-msg">010-0000-0000 형식으로 입력해 주세요.</p>
+        </div>
+      </div>
+
+      <div class="form-row" id="row-email">
+        <label>이메일<span class="req">*</span></label>
+        <input type="email" id="email" placeholder="example@email.com">
+        <p class="error-msg">올바른 이메일 주소를 입력해 주세요.</p>
+      </div>
+
+      <div class="form-row" id="row-field">
+        <label>지원 분야<span class="req">*</span></label>
+        <select id="field">
+          <option value="">분야를 선택하세요</option>
+          <option value="영상">영상 콘텐츠</option>
+          <option value="게임">게임</option>
+          <option value="애니메이션">애니메이션</option>
+          <option value="웹툰">웹툰·스토리</option>
+        </select>
+        <p class="error-msg">지원 분야를 선택해 주세요.</p>
+      </div>
+
+      <div class="form-row" id="row-title">
+        <label>작품·사업명<span class="req">*</span></label>
+        <input type="text" id="title" placeholder="예: 제주 바다 이야기">
+        <p class="error-msg">작품 또는 사업명을 입력해 주세요.</p>
+      </div>
+
+      <div class="form-row" id="row-desc">
+        <label>기획 의도 및 개요<span class="req">*</span></label>
+        <textarea id="desc" maxlength="500" placeholder="작품 또는 사업에 대한 간단한 소개를 500자 이내로 작성해 주세요."></textarea>
+        <div class="char-count"><span id="descCount">0</span> / 500</div>
+        <p class="error-msg">기획 의도를 10자 이상 입력해 주세요.</p>
+      </div>
+
+      <div class="form-row" id="row-agree">
+        <label class="agree-row">
+          <input type="checkbox" id="agree">
+          <span>개인정보 수집 및 이용에 동의합니다. 입력하신 정보는 공모전 접수 및 안내 목적으로만 사용됩니다.<span class="req">*</span></span>
+        </label>
+        <p class="error-msg">개인정보 수집에 동의해야 신청할 수 있습니다.</p>
+      </div>
+
+      <div class="submit-row">
+        <button type="reset" class="btn-ghost" id="resetBtn">초기화</button>
+        <button type="submit" class="btn btn-primary">신청서 제출</button>
+      </div>
+    </form>
+  </section>
+
+  <section id="status" class="block">
+    <h2>제출 현황</h2>
+    <p class="desc">이 브라우저에 저장된 신청 내역입니다.</p>
+    <div id="statusArea"></div>
+  </section>
+
+</main>
+
+<footer>
+  ⓒ 2026 제주콘텐츠진흥원. All rights reserved. (교육 실습용 예시 페이지)
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const STORAGE_KEY = 'jca_submissions';
+
+  const fieldGrid = document.getElementById('fieldGrid');
+  const fieldSelect = document.getElementById('field');
+  const form = document.getElementById('applyForm');
+  const descInput = document.getElementById('desc');
+  const descCount = document.getElementById('descCount');
+  const toast = document.getElementById('toast');
+  const statusArea = document.getElementById('statusArea');
+
+  fieldGrid.addEventListener('click', (e) => {
+    const card = e.target.closest('.field-card');
+    if (!card) return;
+    fieldSelect.value = card.dataset.field;
+    document.querySelectorAll('.field-card').forEach(c => c.classList.remove('active'));
+    card.classList.add('active');
+    document.getElementById('row-field').classList.remove('invalid');
+  });
+
+  fieldSelect.addEventListener('change', () => {
+    document.querySelectorAll('.field-card').forEach(c => {
+      c.classList.toggle('active', c.dataset.field === fieldSelect.value);
+    });
+  });
+
+  descInput.addEventListener('input', () => {
+    descCount.textContent = descInput.value.length;
+  });
+
+  function setInvalid(rowId, invalid) {
+    document.getElementById(rowId).classList.toggle('invalid', invalid);
+  }
+
+  function validate() {
+    let ok = true;
+
+    const name = document.getElementById('name').value.trim();
+    if (!name) { setInvalid('row-name', true); ok = false; } else setInvalid('row-name', false);
+
+    const phone = document.getElementById('phone').value.trim();
+    if (!/^01[0-9]-\d{3,4}-\d{4}$/.test(phone)) { setInvalid('row-phone', true); ok = false; } else setInvalid('row-phone', false);
+
+    const email = document.getElementById('email').value.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { setInvalid('row-email', true); ok = false; } else setInvalid('row-email', false);
+
+    const field = fieldSelect.value;
+    if (!field) { setInvalid('row-field', true); ok = false; } else setInvalid('row-field', false);
+
+    const title = document.getElementById('title').value.trim();
+    if (!title) { setInvalid('row-title', true); ok = false; } else setInvalid('row-title', false);
+
+    const desc = descInput.value.trim();
+    if (desc.length < 10) { setInvalid('row-desc', true); ok = false; } else setInvalid('row-desc', false);
+
+    const agree = document.getElementById('agree').checked;
+    if (!agree) { setInvalid('row-agree', true); ok = false; } else setInvalid('row-agree', false);
+
+    return ok;
+  }
+
+  function loadSubmissions() {
+    try {
+      return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+    } catch (e) {
+      return [];
+    }
+  }
+
+  function saveSubmissions(list) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+  }
+
+  function escapeHtml(str) {
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  function renderStatus() {
+    const list = loadSubmissions();
+    if (list.length === 0) {
+      statusArea.innerHTML = '<div class="status-empty">아직 제출된 신청서가 없습니다.</div>';
+      return;
+    }
+    const rows = list.slice().reverse().map(item => `
+      <tr>
+        <td>${escapeHtml(item.id)}</td>
+        <td>${escapeHtml(item.name)}</td>
+        <td>${escapeHtml(item.field)}</td>
+        <td>${escapeHtml(item.title)}</td>
+        <td><span class="pill">접수완료</span></td>
+        <td><button class="cancel-btn" data-id="${escapeHtml(item.id)}">취소</button></td>
+      </tr>
+    `).join('');
+
+    statusArea.innerHTML = `
+      <table class="status-table">
+        <thead>
+          <tr>
+            <th>접수번호</th>
+            <th>신청자</th>
+            <th>분야</th>
+            <th>작품·사업명</th>
+            <th>상태</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>${rows}</tbody>
+      </table>
+    `;
+  }
+
+  statusArea.addEventListener('click', (e) => {
+    if (!e.target.classList.contains('cancel-btn')) return;
+    const id = e.target.dataset.id;
+    const list = loadSubmissions().filter(item => item.id !== id);
+    saveSubmissions(list);
+    renderStatus();
+    showToast(`접수번호 ${id} 신청이 취소되었습니다.`);
+  });
+
+  function showToast(html) {
+    toast.innerHTML = html;
+    toast.classList.add('show');
+    clearTimeout(showToast._t);
+    showToast._t = setTimeout(() => toast.classList.remove('show'), 3200);
+  }
+
+  function makeReceiptId() {
+    const rand = Math.floor(1000 + Math.random() * 9000);
+    return `JCA-2026-${rand}`;
+  }
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (!validate()) {
+      const firstInvalid = form.querySelector('.form-row.invalid');
+      if (firstInvalid) firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+
+    const id = makeReceiptId();
+    const submission = {
+      id,
+      name: document.getElementById('name').value.trim(),
+      phone: document.getElementById('phone').value.trim(),
+      email: document.getElementById('email').value.trim(),
+      field: fieldSelect.value,
+      title: document.getElementById('title').value.trim(),
+      desc: descInput.value.trim(),
+      date: new Date().toISOString()
+    };
+
+    const list = loadSubmissions();
+    list.push(submission);
+    saveSubmissions(list);
+    renderStatus();
+
+    form.reset();
+    descCount.textContent = '0';
+    document.querySelectorAll('.field-card').forEach(c => c.classList.remove('active'));
+    document.querySelectorAll('.form-row.invalid').forEach(r => r.classList.remove('invalid'));
+
+    showToast(`신청이 완료되었습니다. 접수번호 <strong>${id}</strong>`);
+    document.getElementById('status').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
+  document.getElementById('resetBtn').addEventListener('click', () => {
+    setTimeout(() => {
+      descCount.textContent = '0';
+      document.querySelectorAll('.field-card').forEach(c => c.classList.remove('active'));
+      document.querySelectorAll('.form-row.invalid').forEach(r => r.classList.remove('invalid'));
+    }, 0);
+  });
+
+  renderStatus();
+</script>
+
+</body>
+</html>
